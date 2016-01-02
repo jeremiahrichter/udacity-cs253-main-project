@@ -2,20 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>Sign Up</title>
     <style type="text/css">
-    .error {
+        .error {
         color: red;
-    }
+        }
+        .right {
+        text-align: right;
+        }
     </style>
 </head>
 <body>
+<h1>Enter your details to sign up</h1>
 <form method="post">
-    <h1>Enter text to ROT13</h1>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="username" value=""></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>Verify Password</td>
+            <td><input type="password" name="verify"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="email" value=""></td>
+        </tr>
+    </table>
     <br>
-    <textarea name="text">
-    </textarea>
+    <br>
     <input type="submit">
 </form>
+<div class="error"></div>
 </body>
 </html>
