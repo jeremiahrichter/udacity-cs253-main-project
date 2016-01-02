@@ -20,19 +20,19 @@ form = """
 <form method="post">
     <table>
         <tr>
-            <td>Username</td>
+            <td class="right">Username</td>
             <td><input type="text" name="username" value="{username}"></td>
         </tr>
         <tr>
-            <td>Password</td>
+            <td class="right">Password</td>
             <td><input type="password" name="password"></td>
         </tr>
         <tr>
-            <td>Verify Password</td>
+            <td class="right">Verify Password</td>
             <td><input type="password" name="verify"></td>
         </tr>
         <tr>
-            <td>Email</td>
+            <td class="right">Email</td>
             <td><input type="email" name="email" value="{email}"></td>
         </tr>
     </table>
