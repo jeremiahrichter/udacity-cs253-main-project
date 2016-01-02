@@ -1,32 +1,57 @@
 import webapp2
-import string
-from header import escape_html
 
 form = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>test</title>
+    <title>Sign Up</title>
     <style type="text/css">
+        .error {{
+        color: red;
+        }}
+        .right {{
+            text-align: right;
+        }}
     </style>
 </head>
 <body>
+<h1>Enter your details to sign up</h1>
 <form method="post">
-    <h1>Enter text to ROT13</h1>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="username" value="{username}"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td>Verify Password</td>
+            <td><input type="password" name="verify"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="email" value="{email}"></td>
+        </tr>
+    </table>
     <br>
-    <textarea name="text">{text}</textarea>
     <br>
     <input type="submit">
 </form>
+<div class="error"></div>
 </body>
 </html>
 """
 
 
-class SignInHandler(webapp2.RequestHandler):
-    def write_form(self, text=""):
-        self.response.out.write(form.format(**{"text": text}))
+class SignupHandler(webapp2.RequestHandler):
+    def write_form(self, username="", email="", error=""):
+        self.response.out.write(form.format(**{'username': username,
+                                               'email': email,
+                                               'error': error}))
+
 
     def get(self):
         self.write_form()
