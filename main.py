@@ -83,5 +83,5 @@ app = webapp2.WSGIApplication([
     ('/thanks', ThanksHandler),
     ('/rot13', rot13.ROT13Handler),
     ('/signup', signup.SignupHandler),
-    ('/signed-up-success', signup.SignupSuccessHandler)
+    ('/welcome', signup.WelcomeHandler)
 ], debug=True)
