@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 import webapp2
+
 import rot13
 import signup
 from header import valid_day, valid_month, valid_year, escape_html
@@ -81,5 +82,5 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/thanks', ThanksHandler),
     ('/rot13', rot13.ROT13Handler),
-    ('/signin', signup.SignupHandler)
+    ('/signup', signup.SignupHandler)
 ], debug=True)
