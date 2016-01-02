@@ -96,9 +96,10 @@ class SignupHandler(webapp2.RequestHandler):
                             escape_html(user_email),
                             error_msg)
         else:
-            self.redirect('/signed-up-success')
+            self.redirect('/welcome?username={}'.format(escape_html(user_name)))
 
 
-class SignupSuccessHandler(webapp2.RequestHandler):
+class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.out.write("<h1>Thank you for signing up!</h1>")
+        username = self.request.get('username')
+        self.response.out.write("<h1>Welcome, {}!</h1>".format(username))
