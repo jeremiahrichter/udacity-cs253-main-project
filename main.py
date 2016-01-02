@@ -16,6 +16,7 @@
 #
 import webapp2
 import rot13
+import signup
 from header import valid_day, valid_month, valid_year, escape_html
 
 form = """
@@ -79,5 +80,6 @@ class ThanksHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/thanks', ThanksHandler),
-    ('/rot13', rot13.ROT13Handler)
+    ('/rot13', rot13.ROT13Handler),
+    ('/signin', signup.SignupHandler)
 ], debug=True)
