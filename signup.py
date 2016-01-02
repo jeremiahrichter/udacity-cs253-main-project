@@ -50,7 +50,7 @@ form = """
 """
 
 USER_REGEX = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-PASS_REGEX = re.compile(r"^[^\s<>/\'\"]{8,}$")
+PASS_REGEX = re.compile(r"^[^\s]{8,}$")
 EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
 
 
@@ -87,7 +87,7 @@ class SignupHandler(webapp2.RequestHandler):
         if valid_pass and not (user_pass == user_verify):
             error_msg += 'Both passwords do not match.<br>'
         if not valid_pass:
-            error_msg += 'Please enter a password at least 8 characters long without using <, >, \', / or ".<br>'
+            error_msg += 'Please enter a password at least 8 characters long.<br>'
         if not valid_email:
             error_msg += 'Please enter a valid email address.<br>'
 
