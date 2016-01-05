@@ -1,73 +1,31 @@
 #!/usr/bin/env python2
 
 import webapp2
+import os
+import jinja2
+from google.appengine.ext import db
 
-import rot13
-import signup
-from header import valid_day, valid_month, valid_year, escape_html
-
-form = """
-<head><style type="text/css">
-    .error {{
-        color: red;
-    }}
-</style></head>
-<form method="post">
-	What is your birthday?
-	<br>
-	<br>
-	<label>Month
-	    <input type="text" name="month" value="{month}">
-    </label>
-    <label>Day
-	    <input type="text" name="day" value="{day}">
-    </label>
-	<label>Year
-	    <input type="text" name="year" value="{year}">
-	</label>
-	<div class="error">{error}</div>
-	<br>
-	<br>
-	<input type="submit">
-</form>
-"""
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja2_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 
-class MainHandler(webapp2.RequestHandler):
-    def write_form(self, error="", month="", day="", year=""):
-        self.response.out.write(form.format(**{"error": error,
-                                               "month": escape_html(month),
-                                               "day": escape_html(day),
-                                               "year": escape_html(year)}))
+class Handler(webapp2.RequestHandler):
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
 
+    def render_str(self, template, **params):
+        t = jinja2_env.get_template(template)
+        return t.render(params)
+
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
+
+
+class MainHandler(Handler):
     def get(self):
-        self.write_form()
-
-    def post(self):
-        user_month = self.request.get('month')
-        user_day = self.request.get('day')
-        user_year = self.request.get('year')
-
-        month = valid_month(user_month)
-        day = valid_day(user_day)
-        year = valid_year(user_year)
-
-        if not (month and day and year):
-            self.write_form("That doesn't look valid to me.",
-                            user_month, user_day, user_year)
-        else:
-            self.redirect('/thanks')
-
-
-class ThanksHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.out.write("Thanks, that's a valid day!")
+        self.write('asciichan')
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/thanks', ThanksHandler),
-    ('/rot13', rot13.ROT13Handler),
-    ('/signup', signup.SignupHandler),
-    ('/welcome', signup.WelcomeHandler)
+    ('/', MainHandler)
 ], debug=True)
