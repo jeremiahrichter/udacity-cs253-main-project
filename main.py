@@ -9,9 +9,9 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja2_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 
-class Art(db.Model):
+class Post(db.Model):
     title = db.StringProperty(required=True)
-    art = db.TextProperty(required=True)
+    body = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
 
 
@@ -28,23 +28,11 @@ class Handler(webapp2.RequestHandler):
 
 
 class MainHandler(Handler):
-    def render_front(self, title='', art='', error=''):
-        arts = db.GqlQuery('select * from Art order by created desc')
-        self.render('front.html', title=title, art=art, error=error, arts=arts)
+    def render_front(self):
+        self.render('front.html')
 
     def get(self):
         self.render_front()
-
-    def post(self):
-        title = self.request.get('title')
-        art = self.request.get('art')
-        if title and art:
-            a = Art(title=title, art=art)
-            a.put()
-            self.redirect('/')
-        else:
-            error = 'we need both a title and artwork!'
-            self.render_front(title=title, art=art, error=error)
 
 
 app = webapp2.WSGIApplication([
