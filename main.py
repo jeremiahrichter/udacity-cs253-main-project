@@ -48,7 +48,9 @@ class NewPostHandler(Handler):
 
 class MainHandler(Handler):
     def render_front(self):
-        self.render('front.html')
+        posts = Post.all()
+        posts.order('-created')
+        self.render('front.html', posts=posts)
 
     def get(self):
         self.render_front()
