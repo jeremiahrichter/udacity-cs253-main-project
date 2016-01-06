@@ -11,7 +11,7 @@ body {
 
 label {
     display: block;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 input[type=text] {
@@ -28,7 +28,7 @@ textarea {
 }
 
 input[type=submit] {
-    font-size: 24px;
+    font-size: 15px;
 }
 
 hr {
@@ -53,4 +53,19 @@ hr {
     width: 100%;
     margin 0 auto;
     text-align: center;
+}
+
+.post-link {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+.middle-box {
+    width: 60%;
+    margin: 0 auto;
 }
