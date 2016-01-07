@@ -13,6 +13,7 @@ class Post(db.Model):
     subject = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
+    id = db.IntegerProperty(required=True)
 
 
 class Handler(webapp2.RequestHandler):
@@ -27,6 +28,17 @@ class Handler(webapp2.RequestHandler):
         self.write(self.render_str(template, **kw))
 
 
+class PostHandler(Handler):
+    def get(self, post_id):
+        q = Post.all()
+        q.filter('id =', int(post_id))
+        post = q.get()
+        if post:
+            self.render('solo_post.html', post=post)
+        else:
+            self.write('No post found for id {}'.format(post_id))
+
+
 class NewPostHandler(Handler):
     def render_newpost(self, subject="", content="", error=""):
         self.render('newpost.html', subject=subject, content=content, error=error)
@@ -39,12 +51,13 @@ class NewPostHandler(Handler):
         content = self.request.get('content')
 
         if subject and content:
-            p = Post(subject=subject, content=content)
+            p = Post(subject=subject, content=content, id=(Post.all().count() + 1))
             p.put()
-            self.redirect('/')
+            self.redirect('/post/{}'.format(p.id))
         else:
             error = 'You must enter a subject line and some content.'
             self.render_newpost(subject=subject, content=content, error=error)
+
 
 class MainHandler(Handler):
     def render_front(self):
@@ -58,5 +71,6 @@ class MainHandler(Handler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/newpost', NewPostHandler)
+    ('/newpost', NewPostHandler),
+    ('/post/(\d+)', PostHandler)
 ], debug=True)
