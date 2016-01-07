@@ -16,8 +16,9 @@ label {
 
 input[type=text] {
     width: 400px;
-    font-size: 20px
+    font-size: 15px
     padding: 2px;
+    font-family: monospace;
 }
 
 textarea {
