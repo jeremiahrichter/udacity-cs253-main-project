@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="post-body">
-        {{post.content}}
+        {{post.render() | safe}}
     </div>
 </div>
 

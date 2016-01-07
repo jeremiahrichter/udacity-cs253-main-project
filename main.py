@@ -14,6 +14,11 @@ class Post(db.Model):
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
     id = db.IntegerProperty(required=True)
+    last_modified = db.DateTimeProperty(auto_now=True)
+
+    def render(self):
+        self._render_text = self.content.replace('\n', '<br>')
+        return self._render_text
 
 
 class Handler(webapp2.RequestHandler):
@@ -36,7 +41,7 @@ class PostHandler(Handler):
         if post:
             self.render('solo_post.html', post=post)
         else:
-            self.write('No post found for id {}'.format(post_id))
+            self.error(404)
 
 
 class NewPostHandler(Handler):
