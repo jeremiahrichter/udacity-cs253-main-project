@@ -31,8 +31,10 @@ class MainHandler(Handler):
             visits = 0
 
         self.response.headers.add_header('Set-Cookie', 'visits={}'.format(visits))
-
-        self.write("You've been here {} times".format(visits))
+        if visits > 10:
+            self.write('You are the best ever!')
+        else:
+            self.write("You've been here {} times".format(visits))
 
 
 app = webapp2.WSGIApplication([
