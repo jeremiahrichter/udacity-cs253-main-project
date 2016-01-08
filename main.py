@@ -24,8 +24,12 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
-        visits = int(self.request.cookies.get('visits', 0))
-        visits += 1
+        visits = self.request.cookies.get('visits', 0)
+        if visits.isdigit():
+            visits = int(visits) + 1
+        else:
+            visits = 0
+
         self.response.headers.add_header('Set-Cookie', 'visits={}'.format(visits))
 
         self.write("You've been here {} times".format(visits))
