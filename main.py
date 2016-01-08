@@ -13,13 +13,15 @@ class Post(db.Model):
     subject = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
-    id = db.IntegerProperty(required=True)
     last_modified = db.DateTimeProperty(auto_now=True)
 
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
         return self._render_text
 
+
+def blog_key(name='default'):
+    return db.Key.from_path('blogs', name)
 
 class Handler(webapp2.RequestHandler):
     def write(self, *a, **kw):
@@ -35,9 +37,8 @@ class Handler(webapp2.RequestHandler):
 
 class PostHandler(Handler):
     def get(self, post_id):
-        q = Post.all()
-        q.filter('id =', int(post_id))
-        post = q.get()
+        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        post = db.get(key)
         if post:
             self.render('solo_post.html', post=post)
         else:
@@ -56,9 +57,9 @@ class NewPostHandler(Handler):
         content = self.request.get('content')
 
         if subject and content:
-            p = Post(subject=subject, content=content, id=(Post.all().count() + 1))
+            p = Post(parent=blog_key(), subject=subject, content=content)
             p.put()
-            self.redirect('/post/{}'.format(p.id))
+            self.redirect('/post/{}'.format(p.key().id()))
         else:
             error = 'You must enter a subject line and some content.'
             self.render_newpost(subject=subject, content=content, error=error)
