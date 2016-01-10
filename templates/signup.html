@@ -1,0 +1,39 @@
+{% extends "header.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<div class="middle-box">
+    <h3>Fill out this form to sign up:</h3>
+    <form method="post">
+        <table>
+            <tr>
+                <td>Username</td>
+                <td>
+                    <input type="text" name="username" value="{{name}}">
+                </td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>
+                    <input type="password" name="password">
+                </td>
+            </tr>
+            <tr>
+                <td>Verify Password</td>
+                <td>
+                    <input type="password" name="verify">
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" name="email" value="{{email}}">
+                </td>
+            </tr>
+        </table>
+        <input type="submit">
+    </form>
+    <div class="error">
+        {{error | safe}}
+    </div>
+</div>
+{% endblock %}
