@@ -30,7 +30,7 @@ class User(h.db.Model):
         pw_hash = make_pw_hash(name, password)
         return User(
                 parent=users_key(),
-                name=name,
+                username=name,
                 password=pw_hash,
                 email=email
         )
