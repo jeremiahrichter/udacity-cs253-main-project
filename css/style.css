@@ -67,7 +67,6 @@ hr {
 }
 
 .post-link {
-    text-align: right;
     margin-bottom: 30px;
 }
 
@@ -93,4 +92,11 @@ h3 {
 
 .post + .post {
     margin-top: 50px;
+}
+
+.right {
+    float: right;
+}
+.right + .right {
+    margin-right: 50px;
 }

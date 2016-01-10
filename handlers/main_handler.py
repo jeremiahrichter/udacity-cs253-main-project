@@ -6,7 +6,7 @@ class MainHandler(Handler):
     def render_front(self):
         posts = Post.all()
         posts.order('-created')
-        self.render('front.html', posts=posts)
+        self.render('front.html', posts=posts, user=self.user)
 
     def get(self):
         self.render_front()

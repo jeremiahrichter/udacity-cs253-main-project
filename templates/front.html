@@ -2,7 +2,13 @@
 {% block title %}Main Page{% endblock %}
 {% block content %}
 <div class="post-link">
-    <a href="/newpost" alt="new post">New Post</a>
+    {% if user %}
+    <a class="right" href="/logout" alt="log out">Logout</a>
+    <a class="right" href="/newpost" alt="new post">New Post</a>
+    {% else %}
+    <a class="right" href="/signup" alt="log out">Sign Up</a>
+    <a class="right" href="/login" alt="log out">Login</a>
+    {% endif %}
 </div>
 {% for post in posts %}
 {% include "post.html" %}
