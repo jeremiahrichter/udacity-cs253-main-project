@@ -1,6 +1,5 @@
+from models.post_model import Post
 from .handler_class import Handler
-
-from handlers.post_model import Post
 
 
 class MainHandler(Handler):

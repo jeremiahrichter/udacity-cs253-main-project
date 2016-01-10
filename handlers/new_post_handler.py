@@ -1,5 +1,5 @@
-from handlers.post_model import Post
 from header import blog_key
+from models.post_model import Post
 from .handler_class import Handler
 
 
