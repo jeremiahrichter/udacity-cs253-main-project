@@ -6,11 +6,13 @@ from handlers.new_post_handler import NewPostHandler
 from handlers.post_handler import PostHandler
 from handlers.signup_handler import SignupHandler
 from handlers.welcome_handler import WelcomeHandler
+from handlers.login_handler import LoginHandler
 
 app = h.webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/newpost', NewPostHandler),
     ('/post/(\d+)', PostHandler),
     ('/signup', SignupHandler),
-    ('/welcome', WelcomeHandler)
+    ('/welcome', WelcomeHandler),
+    ('/login', LoginHandler)
 ], debug=True)
