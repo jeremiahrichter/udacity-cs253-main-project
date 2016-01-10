@@ -2,8 +2,8 @@ from .handler_class import Handler
 
 
 class WelcomeHandler(Handler):
+    def render_welcome(self, user=None):
+        self.render('welcome.html', user=user)
+
     def get(self):
-        if self.user:
-            self.write('Welcome, {}!'.format(self.user.username))
-        else:
-            self.write('No one is logged in.')
+        self.render_welcome(self.user)

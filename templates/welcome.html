@@ -1,0 +1,15 @@
+{% extends "header.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<div class="middle-box">
+    {% if user %}
+
+    <h1>Welcome, {{user.username}}, you are signed in!</h1>
+
+    {% else %}
+    <p>You are not signed in.</p>
+    <p>Please <a href="/signup" alt="sign up">sign up</a></p>
+    <p>or <a href="/login" alt="log in">log in.</a></p>
+    {% endif %}
+</div>
+{% endblock %}
