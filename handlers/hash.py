@@ -21,7 +21,7 @@ def valid_pw(name, pw, h):
     return h == make_pw_hash(name, pw, salt)
 
 
-SECRET = 'ImASecret'
+SECRET = '26f0e26f71d87f27b1118620b313b1ff23243ced41f0eef068dcc7613100f256'
 
 
 def hash_str(s):
