@@ -21,6 +21,20 @@ input[type=text] {
     font-family: monospace;
 }
 
+input[type=password] {
+    width: 400px;
+    font-size: 15px
+    padding: 2px;
+    font-family: monospace;
+}
+
+input[type=email] {
+    width: 400px;
+    font-size: 15px
+    padding: 2px;
+    font-family: monospace;
+}
+
 textarea {
     width: 400px;
     height: 200px;
