@@ -23,6 +23,7 @@ class JSONHandler(Handler):
                 for post in posts:
                     json_obj.append(self.post_to_dict(post))
         if json_obj:
+            self.response.headers.add('Content-Type', 'application/json charset=utf-8')
             self.write(j.dumps(json_obj))
 
     def post_to_dict(self, post):
