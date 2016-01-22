@@ -40,7 +40,7 @@ class MainHandler(Handler):
         title = self.request.get('title')
         art = self.request.get('art')
         if title and art:
-            a = Art(title=title, art=art)
+            a = Art(title=title, art=art, parent=h.art_key())
             a.put()
             self.redirect('/')
         else:
