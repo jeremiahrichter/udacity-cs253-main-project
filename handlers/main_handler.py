@@ -2,7 +2,7 @@ from .handler_class import Handler
 import header as h
 from models.art_model import Art
 from header import get_coord
-
+from header import gmaps_img
 
 class MainHandler(Handler):
     def render_front(self, title='', art='', error=''):
@@ -10,8 +10,12 @@ class MainHandler(Handler):
 
         arts = list(arts)
         points = filter(None, (a.coords for a in arts))
+        img_url = None
+        if points:
+            img_url = gmaps_img(points)
 
-        self.render('front.html', title=title, art=art, error=error, arts=arts)
+        self.render('front.html', title=title, art=art,
+                    error=error, arts=arts, img_url=img_url)
 
     def get(self):
         self.render_front()
