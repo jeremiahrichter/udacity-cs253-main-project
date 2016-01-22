@@ -41,6 +41,9 @@ class MainHandler(Handler):
         art = self.request.get('art')
         if title and art:
             a = Art(title=title, art=art, parent=h.art_key())
+            coords = self.get_coord(self.request.remote_addr)
+            if coords:
+                a.coords = coords
             a.put()
             self.redirect('/')
         else:
