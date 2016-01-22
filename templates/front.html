@@ -10,7 +10,7 @@
     <a class="right" href="/login" alt="log out">Login</a>
     {% endif %}
 </div>
-{% for post in posts %}
+{% for post in posts.run(limit=10) %}
 {% include "post.html" %}
 {% endfor %}
 {% endblock %}
