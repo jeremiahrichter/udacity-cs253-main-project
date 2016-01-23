@@ -1,7 +1,7 @@
 from header import blog_key
 from models.post_model import Post
 from .handler_class import Handler
-
+from .post_header import top_ten
 
 class NewPostHandler(Handler):
     def render_newpost(self, subject="", content="", error=""):
@@ -17,6 +17,7 @@ class NewPostHandler(Handler):
         if subject and content:
             p = Post(parent=blog_key(), subject=subject, content=content)
             p.put()
+            top_ten(True)
             self.redirect('/post/{}'.format(p.key().id()))
         else:
             error = 'You must enter a subject line and some content.'
