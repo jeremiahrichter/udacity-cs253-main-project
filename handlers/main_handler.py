@@ -9,10 +9,10 @@ import logging
 CACHE = {}
 
 
-def get_top_ten():
+def get_top_ten(update=False):
     arts = None
     key = 'top10'
-    if key in CACHE:
+    if not update and key in CACHE:
         arts = CACHE[key]
     else:
         logging.error("***DB QUERY***")
@@ -46,6 +46,7 @@ class MainHandler(Handler):
             if coords:
                 a.coords = coords
             a.put()
+            get_top_ten(True)
             self.redirect('/')
         else:
             error = 'we need both a title and artwork!'
