@@ -4,12 +4,28 @@ from models.art_model import Art
 from header import get_coord
 from header import gmaps_img
 from header import art_key
+import logging
+
+CACHE = {}
+
+
+def get_top_ten():
+    arts = None
+    key = 'top10'
+    if key in CACHE:
+        arts = CACHE[key]
+    else:
+        logging.error("***DB QUERY***")
+        arts = Art.all().order('-created').ancestor(art_key()).run(limit=10)
+        arts = list(arts)
+        CACHE[key] = arts
+    return arts
+
 
 class MainHandler(Handler):
     def render_front(self, title='', art='', error=''):
-        arts = Art.all().order('-created').ancestor(art_key()).run(limit=10)
+        arts = get_top_ten()
 
-        arts = list(arts)
         points = filter(None, (a.coords for a in arts))
         img_url = None
         if points:
