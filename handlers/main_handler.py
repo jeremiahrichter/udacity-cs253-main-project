@@ -3,10 +3,11 @@ import header as h
 from models.art_model import Art
 from header import get_coord
 from header import gmaps_img
+from header import art_key
 
 class MainHandler(Handler):
     def render_front(self, title='', art='', error=''):
-        arts = h.db.GqlQuery('select * from Art order by created desc')
+        arts = Art.all().order('-created').ancestor(art_key()).run(limit=10)
 
         arts = list(arts)
         points = filter(None, (a.coords for a in arts))
