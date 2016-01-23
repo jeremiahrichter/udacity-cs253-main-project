@@ -9,6 +9,7 @@ from handlers.welcome_handler import WelcomeHandler
 from handlers.login_handler import LoginHandler
 from handlers.logout_handler import LogoutHandler
 from handlers.json_handler import JSONHandler
+from handlers.flush_handler import FlushHandler
 
 app = h.webapp2.WSGIApplication([
     ('/', MainHandler),
@@ -19,5 +20,6 @@ app = h.webapp2.WSGIApplication([
     ('/login', LoginHandler),
     ('/logout', LogoutHandler),
     ('/.json', JSONHandler),
-    ('/post/(\d+).json', JSONHandler)
+    ('/post/(\d+).json', JSONHandler),
+    ('/flush', FlushHandler)
 ], debug=True)
