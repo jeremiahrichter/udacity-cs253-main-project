@@ -5,20 +5,17 @@ from header import get_coord
 from header import gmaps_img
 from header import art_key
 import logging
-
-CACHE = {}
+from google.appengine.api import memcache
 
 
 def get_top_ten(update=False):
-    arts = None
     key = 'top10'
-    if not update and key in CACHE:
-        arts = CACHE[key]
-    else:
+    arts = memcache.get(key)
+    if arts is None or update:
         logging.error("***DB QUERY***")
         arts = Art.all().order('-created').ancestor(art_key()).run(limit=10)
         arts = list(arts)
-        CACHE[key] = arts
+        memcache.set(key, arts)
     return arts
 
 
