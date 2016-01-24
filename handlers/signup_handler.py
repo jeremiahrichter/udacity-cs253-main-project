@@ -21,7 +21,7 @@ class SignupHandler(Handler):
         return User.by_name(username)
 
     def render_page(self, name="", email="", error=""):
-        self.render('signup.html', name=name, email=email, error=error)
+        self.render('signup.html', name=name, email=email, error=error, user=self.user)
 
     def get(self):
         self.render_page()
@@ -59,4 +59,4 @@ class SignupHandler(Handler):
             user.put()
             if user:
                 self.login(user)
-                self.redirect('/welcome')
+                self.redirect('/')

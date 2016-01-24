@@ -4,7 +4,7 @@ from models.user_model import User
 
 class LoginHandler(Handler):
     def render_page(self, name="", error=""):
-        self.render('login.html', name=name, error=error)
+        self.render('login.html', name=name, error=error, user=self.user)
 
     def get(self):
         self.render_page()
@@ -17,7 +17,7 @@ class LoginHandler(Handler):
 
         if user:
             self.login(user)
-            self.redirect('/welcome')
+            self.redirect('/')
         else:
             error = 'Either the username or the password wasn\'t valid'
             self.render_page(name=user_name, error=error)

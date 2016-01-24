@@ -1,25 +1,17 @@
 #!/usr/bin/env python2
 
 import header as h
-from handlers.main_handler import MainHandler
-from handlers.new_post_handler import NewPostHandler
-from handlers.post_handler import PostHandler
 from handlers.signup_handler import SignupHandler
-from handlers.welcome_handler import WelcomeHandler
 from handlers.login_handler import LoginHandler
 from handlers.logout_handler import LogoutHandler
-from handlers.json_handler import JSONHandler
-from handlers.flush_handler import FlushHandler
+from handlers.wiki_page_handler import WikiPageHandler
+from handlers.edit_page_handler import EditPageHandler
 
+PAGE_RE = r'(/(?:[a-zA-Z0-9_-]+/?)*)'
 app = h.webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/newpost', NewPostHandler),
-    ('/post/(\d+)', PostHandler),
     ('/signup', SignupHandler),
-    ('/welcome', WelcomeHandler),
     ('/login', LoginHandler),
     ('/logout', LogoutHandler),
-    ('/.json', JSONHandler),
-    ('/post/(\d+).json', JSONHandler),
-    ('/flush', FlushHandler)
+    (PAGE_RE, WikiPageHandler),
+    ('/_edit' + PAGE_RE, EditPageHandler)
 ], debug=True)

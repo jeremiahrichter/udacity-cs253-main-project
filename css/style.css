@@ -35,12 +35,6 @@ input[type=email] {
     font-family: monospace;
 }
 
-textarea {
-    width: 400px;
-    height: 200px;
-    font-size: 15px;
-    font-family: monospace;
-}
 
 input[type=submit] {
     font-size: 15px;
@@ -50,53 +44,33 @@ hr {
     margin: 10px auto;
 }
 
-.post-title {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.post-body {
-    margin: 0;
-    font-size: 15px;
-}
-
-#title {
-    width: 100%;
-    margin 0 auto;
-    text-align: center;
-}
 
 .post-link {
     margin-bottom: 30px;
 }
 
-a:link, a:visited, a:hover, a:active {
-    color: #000;
-    text-decoration: none;
+.header {
+    width: 100%;
+    overflow: auto;
 }
 
-.middle-box {
-    width: 60%;
-    margin: 0 auto;
+.no-style + .no-style {
+    margin: 0 30px;
 }
 
-.post-datetime {
-    text-align: right;
-    font-size: 12px;
+.no-style:link, .no-style:visited, .no-style:hover, .no-style:active {
     color: gray;
-}
-
-h3 {
-    margin: 0;
-}
-
-.post + .post {
-    margin-top: 50px;
+    text-decoration: none;
 }
 
 .right {
     float: right;
 }
-.right + .right {
-    margin-right: 50px;
+
+.gray {
+    color: gray;
+}
+
+.container {
+    margin-top: 80px;
 }

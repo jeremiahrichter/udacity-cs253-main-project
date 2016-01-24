@@ -1,0 +1,19 @@
+{% if user %}
+<div class="header">
+        <span class="no-style gray right">
+            {{user.username}} <a class="no-style" href="/logout">(logout)</a>
+        </span>
+    <a class="right no-style" href="/_edit{{url or '/'}}">edit</a>
+</div>
+{% else %}
+<div class="header">
+        <span>
+            <a class="right no-style" href="/login">
+                login
+            </a>
+            <a class="right no-style" href="/signup">
+                signup
+            </a>
+        </span>
+</div>
+{% endif %}
