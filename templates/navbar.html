@@ -1,9 +1,11 @@
 {% if user %}
 <div class="header">
-        <span class="no-style gray right">
-            {{user.username}} <a class="no-style" href="/logout">(logout)</a>
-        </span>
+    <span class="no-style gray right">
+        {{user.username}} <a class="no-style" href="/logout">(logout)</a>
+    </span>
+    {% if url and not '_edit' in url %}
     <a class="right no-style" href="/_edit{{url or '/'}}">edit</a>
+    {% endif %}
 </div>
 {% else %}
 <div class="header">
