@@ -1,10 +1,12 @@
-import header as h
+from webapp2 import RequestHandler
 from header import jinja2_env
 from .hash import make_secure_val, check_secure_val
 from models.user_model import User
 
 
-class Handler(h.webapp2.RequestHandler):
+class Handler(RequestHandler):
+    user = None
+
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
 
@@ -32,6 +34,6 @@ class Handler(h.webapp2.RequestHandler):
                                          'user_id=; Path=/')
 
     def initialize(self, *args, **kwargs):
-        h.webapp2.RequestHandler.initialize(self, *args, **kwargs)
+        RequestHandler.initialize(self, *args, **kwargs)
         uid = self.read_secure_cookie('user_id')
         self.user = uid and User.by_id(int(uid))
