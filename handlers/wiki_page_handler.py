@@ -13,4 +13,4 @@ class WikiPageHandler(Handler):
         elif not page and self.user:
             self.redirect('/_edit' + url)
         else:
-            self.render_page(url)
+            self.redirect('/login')

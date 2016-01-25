@@ -16,7 +16,7 @@ class EditPageHandler(Handler):
         if self.user:
             self.render_edit(url, user=self.user, page=page)
         else:
-            self.render('display.html', url=url, page=page)
+            self.redirect('/login')
 
     def post(self, url):
         if not self.user:
