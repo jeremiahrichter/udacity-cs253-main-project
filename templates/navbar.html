@@ -5,6 +5,8 @@
     </span>
     {% if url and not '_edit' in url %}
     <a class="right no-style" href="/_edit{{url or '/'}}">edit</a>
+    {% else %}
+    <a class="right no-style" href="{{url.replace('_edit/','') or '/'}}">cancel</a>
     {% endif %}
 </div>
 {% else %}
