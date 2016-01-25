@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+{% include "navbar.html" with context %}
+<div class="container">
+    <form method="post">
+        <label>
+            <h3 class="align-center">Page Content</h3>
+            <textarea class="content" name="content">{% if page %}{{ page.content }}{% endif %}</textarea>
+        </label>
+        <br>
+        <input name="submit" type="submit">
+    </form>
+    <div class="error">
+        {{error | safe}}
+    </div>
+</div>
+{% endblock %}

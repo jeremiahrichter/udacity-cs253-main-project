@@ -1,10 +1,11 @@
 import header as h
 from header import page_key
+from handlers.wiki_page_header import markdown_to_html, escape_html
 
 
 class Page(h.db.Model):
     url = h.db.StringProperty(required=True)
-    content = h.db.TextProperty(required=True)
+    content = h.db.TextProperty()
     created = h.db.DateTimeProperty(auto_now_add=True)
     last_modified = h.db.DateTimeProperty(auto_now=True)
 
@@ -14,16 +15,16 @@ class Page(h.db.Model):
         return p
 
     @classmethod
-    def insert_url(cls, url, content):
+    def find_page(cls, url):
         p = Page.by_url(url)
         if not p:
-            p = Page(url=url, content=content, parent=page_key())
-            return p
+            p = Page(url=url, content=h.db.Text(u''), parent=page_key())
+        return p
 
-    @classmethod
-    def update_content(cls, url, content):
-        p = Page.by_url(url)
-        if p:
-            p.content = content
-            p.put()
-            return True
+    def update_content(self, content):
+        self.content = h.db.Text(escape_html(content))
+        self.put()
+        return True
+
+    def html(self):
+        return markdown_to_html(self.content)
