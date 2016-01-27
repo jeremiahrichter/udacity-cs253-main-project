@@ -28,7 +28,7 @@ class Page(h.db.Model):
 
     @classmethod
     def find_page(cls, url):
-        p = Page.by_url(url)
+        p = Page.all_by_path(url).get()
         if not p:
             p = Page(url=url, content=h.db.Text(u''), parent=Page.parent_key(url))
         return p
