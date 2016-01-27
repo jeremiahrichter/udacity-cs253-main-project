@@ -24,7 +24,7 @@ class EditPageHandler(Handler):
         else:
             base_url = root_url(url)
             content = self.request.get('content') or ''
-            page = Page.find_page(base_url)
+            page = Page.by_url(base_url)
             if page.update_content(content):
                 self.redirect(base_url)
             else:
