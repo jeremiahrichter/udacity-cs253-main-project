@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+{% block content %}
+{% include "navbar.html" with context %}
+<div class="container">
+    {% if pages %}
+    <table class="history">
+        {% for page in pages %}
+        <tr>
+            <td>{{page.created.strftime("%c")}}</td>
+            <td>{{page.content if len(page.content) < 50 else page.content [:50]}}</td>
+            <td>
+                <a class="gray no-style" href="{{url + '?v=' + str(page.key().id())}}">view</a>
+            </td>
+            <td>
+                <a class="gray no-style" href="/_edit{{url + '?v=' + str(page.key().id())}}">edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

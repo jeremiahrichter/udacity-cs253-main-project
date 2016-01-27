@@ -54,12 +54,7 @@ hr {
     overflow: auto;
 }
 
-.no-style + .no-style {
-    margin: 0 30px;
-}
-
 .no-style:link, .no-style:visited, .no-style:hover, .no-style:active {
-    color: gray;
     text-decoration: none;
 }
 
@@ -82,4 +77,16 @@ hr {
 .content {
     width: 100%;
     height: 720px;
+}
+
+.history tr:nth-child(even) {
+    background-color: #a5c9ff;
+}
+
+.history td + td {
+    margin-left: 20px;
+}
+
+div.header span + span {
+    margin-right: 30px;
 }
