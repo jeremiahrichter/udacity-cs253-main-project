@@ -83,8 +83,8 @@ hr {
     background-color: #a5c9ff;
 }
 
-.history td + td {
-    margin-left: 20px;
+.content-col {
+    width: 60%;
 }
 
 div.header span + span {

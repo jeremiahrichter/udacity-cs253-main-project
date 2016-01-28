@@ -1,7 +1,6 @@
 from .handler_class import Handler
 from models.page_model import Page
 
-
 def root_url(url):
     return url.replace('_edit/', '')
 
@@ -12,21 +11,21 @@ class EditPageHandler(Handler):
                     page=page, error=error)
 
     def get(self, url):
-        page = Page.by_url(url)
         if self.user:
-            self.render_edit(url, user=self.user, page=page)
+            self.render_edit(self.url, user=self.user, page=self.page)
         else:
             self.redirect('/login')
 
     def post(self, url):
         if not self.user:
-            self.render('display.html', url=url)
+            self.redirect('/login')
         else:
-            base_url = root_url(url)
+            base_url = root_url(self.url)
             content = self.request.get('content') or ''
-            page = Page.by_url(base_url)
-            if page.update_content(content):
-                self.redirect(base_url)
+
+            if self.v:
+                Page.update_content(content, base_url, v=self.v)
+                self.redirect(base_url + '?v={}'.format(self.v))
             else:
-                error = 'An error occurred during submission, please try again!'
-                self.render_edit(url, user=self.user, page=page, error=error)
+                Page.update_content(content, base_url)
+                self.redirect(base_url)

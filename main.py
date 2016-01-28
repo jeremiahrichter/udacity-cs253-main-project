@@ -7,6 +7,7 @@ from handlers.logout_handler import LogoutHandler
 from handlers.wiki_page_handler import WikiPageHandler
 from handlers.edit_page_handler import EditPageHandler
 from handlers.history_page_handler import HistoryPageHandler
+
 PAGE_RE = r'(/(?:[a-zA-Z0-9_-]+/?)*)'
 app = webapp2.WSGIApplication([
     ('/signup', SignupHandler),

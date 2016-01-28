@@ -23,18 +23,19 @@ class Page(h.db.Model):
 
     @classmethod
     def by_url(cls, url):
-        p = Page.all_by_path(url).get()
-        if not p:
-            p = Page(url=url, content=h.db.Text(u''), parent=Page.parent_key(url))
-        return p
+        return Page.all_by_path(url).get()
 
-    def update_content(self, content):
+    @classmethod
+    def update_content(cls, content, url, v=None):
         safe_content = h.db.Text(escape_html(content))
-        if self.content != safe_content:
-            self.content = safe_content
-            self.put()
-            return True
-        return False
+        if v:
+            p = Page.by_id(v, url)
+            if p.content != safe_content:
+                p.content = safe_content
+                p.put()
+        else:
+            p = Page(url=url, content=h.db.Text(content), parent=Page.parent_key(url))
+            p.put()
 
     def html(self):
         return markdown_to_html(self.content)

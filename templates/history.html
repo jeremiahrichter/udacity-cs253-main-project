@@ -7,12 +7,13 @@
         {% for page in pages %}
         <tr>
             <td>{{page.created.strftime("%c")}}</td>
-            <td>{{page.content if len(page.content) < 50 else page.content [:50]}}</td>
+            <td class="content-col">{{page.content if len(page.content) < 50 else page.content [:50]}}</td>
             <td>
-                <a class="gray no-style" href="{{url + '?v=' + str(page.key().id())}}">view</a>
+                <a class="gray no-style" href="{{url.replace('/_history','') + '?v=' + str(page.key().id())}}">view</a>
             </td>
             <td>
-                <a class="gray no-style" href="/_edit{{url + '?v=' + str(page.key().id())}}">edit</a>
+                <a class="gray no-style"
+                   href="/_edit{{url.replace('/_history','') + '?v=' + str(page.key().id())}}">edit</a>
             </td>
         </tr>
         {% endfor %}
