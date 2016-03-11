@@ -1,8 +1,0 @@
-{% extends "header.html" %}
-{% block title %}{{post.subject}}{% endblock %}
-{% block content %}
-{% include "post.html" with context %}
-<div class="post-datetime right">
-    {{"Queried {:.0f} seconds ago".format(last_updated)}}
-</div>
-{% endblock %}

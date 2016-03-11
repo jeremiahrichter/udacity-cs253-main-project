@@ -20,13 +20,18 @@ class SignupHandler(Handler):
     def username_in_use(self, username):
         return User.by_name(username)
 
-    def render_page(self, name="", email="", error=""):
-        self.render('signup.html', name=name, email=email, error=error)
+    def render_page(self, name="", email="", error="", prev_url='/'):
+        self.render('signup.html', name=name, email=email,
+                    error=error, user=self.user, prev_url=prev_url)
 
     def get(self):
+        prev_url = self.request.headers.get('referer', '/')
         self.render_page()
 
     def post(self):
+        prev_url = str(self.request.get('prev_url'))
+        if not prev_url or prev_url.startswith('/login'):
+            prev_url = '/'
         error_msg = ''
         user_name = self.request.get('username')
         user_pass = self.request.get('password')
@@ -52,11 +57,12 @@ class SignupHandler(Handler):
             error_msg += 'Please enter a valid email address.<br>'
 
         if len(error_msg) > 0:
-            self.render_page(name=user_name, email=user_email, error=error_msg)
+            self.render_page(name=user_name, email=user_email,
+                             error=error_msg, prev_url=prev_url)
         else:
             user = User.register(name=user_name, password=user_pass,
                                  email=user_email)
             user.put()
             if user:
                 self.login(user)
-                self.redirect('/welcome')
+                self.redirect(prev_url)

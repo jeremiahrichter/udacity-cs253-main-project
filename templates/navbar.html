@@ -1,0 +1,22 @@
+<div class="header">
+    <span class="right gray">
+        {% if user %}
+            {{user.username}} (<a class="no-style gray" href="/logout">logout</a>)
+        {% else %}
+            <a class="no-style gray" href="/login">login</a> |
+            <a class="no-style gray" href="/signup">sign up</a>
+        {% endif %}
+    </span>
+    <span class="right gray">
+        {% if user and '/_edit' in url %}
+            <a class="no-style gray" href="{{url.replace('/_edit','')}}">cancel</a> |
+        {% elif user and not '/_edit' in url %}
+            <a class="no-style gray" href="/_edit{{url.replace('/_history','')}}">edit</a> |
+        {% endif %}
+        {% if '_history' in url %}
+            <a class="no-style gray" href="{{url.replace('/_history','')}}">view</a>
+        {% elif not'_history' in url %}
+            <a class="no-style gray" href="/_history{{url.replace('/_edit','')}}">history</a>
+        {% endif %}
+    </span>
+</div>
